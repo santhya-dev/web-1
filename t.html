@@ -1,0 +1,673 @@
+<!-- Animated Counters (start from 1) -->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Animated Counters</title>
+  <style>
+    /* Simple responsive layout */
+    .counters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+
+    .counter-card {
+      background: #f7f7f7;
+      border-radius: 10px;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .counter-number {
+      display: block;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .counter-label {
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    @media (min-width: 640px) {
+      .counter-number {
+        font-size: 2.6rem;
+      }
+
+      .counter-label {
+        font-size: 1rem;
+      }
+    }
+
+    /* CTA Section */
+    .cta-section {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 40px 30px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #0056ff, #00c2ff);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .cta-content h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .cta-content p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .cta-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .cta-form .form-group input,
+    .cta-form .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .cta-form textarea {
+      grid-column: span 2;
+    }
+
+    .cta-btn {
+      grid-column: span 2;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: 600;
+      background: #fff;
+      color: #0056ff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .cta-btn:hover {
+      background: #e6e6e6;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .cta-form {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-btn,
+      .cta-form textarea {
+        grid-column: span 1;
+      }
+    }
+
+    /* milestone */
+    .timeline-section {
+      padding: 80px 20px;
+      background: #0e0e15;
+      color: #fff;
+    }
+
+    .timeline-title {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 60px;
+      font-weight: 700;
+    }
+
+    .timeline {
+      position: relative;
+      margin: 0 auto;
+      max-width: 900px;
+    }
+
+    .timeline:before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, #007bff, #00d4ff);
+      transform: translateX(-50%);
+      border-radius: 10px;
+      animation: glowline 3s infinite alternate;
+    }
+
+    @keyframes glowline {
+      0% {
+        box-shadow: 0 0 10px #0099ff;
+      }
+
+      100% {
+        box-shadow: 0 0 25px #00eaff;
+      }
+    }
+
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 25px 40px;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      text-align: right;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+
+    .timeline-icon {
+      width: 55px;
+      height: 55px;
+      background: #0a0a12;
+      border: 3px solid #00eaff;
+      color: #00eaff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      position: absolute;
+      top: 0;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-icon {
+      right: -30px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-icon {
+      left: -30px;
+    }
+
+    .timeline-content {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(6px);
+      padding: 20px 25px;
+      border-radius: 12px;
+      border-left: 3px solid #00eaff;
+      transition: 0.3s;
+    }
+
+    .timeline-item:hover .timeline-content {
+      transform: translateY(-6px);
+      box-shadow: 0 0 18px rgba(0, 238, 255, 0.4);
+    }
+
+    .timeline-content .year {
+      font-size: 22px;
+      color: #00eaff;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .timeline-content h3 {
+      margin-bottom: 6px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .timeline-content p {
+      margin: 0;
+      color: #cfcfcf;
+    }
+
+    @media(max-width: 768px) {
+      .timeline:before {
+        left: 10px;
+      }
+
+      .timeline-item {
+        width: 100%;
+        padding-left: 60px;
+        padding-right: 20px;
+        margin-bottom: 30px;
+        text-align: left !important;
+      }
+
+      .timeline-item:nth-child(even),
+      .timeline-item:nth-child(odd) {
+        left: 0;
+      }
+
+      .timeline-icon {
+        left: 0 !important;
+        right: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="timeline-section">
+    <h2 class="timeline-title" data-aos="fade-up">Our Growth Journey</h2>
+
+    <div class="timeline">
+
+      <!-- MILESTONE 1 -->
+      <div class="timeline-item" data-aos="fade-right">
+        <div class="timeline-icon"><i class="bi bi-flag"></i></div>
+        <div class="timeline-content">
+          <span class="year">2019</span>
+          <h3>Foundation Laid</h3>
+          <p>Started as a focused recruitment and staffing solutions provider.</p>
+        </div>
+      </div>
+
+      <!-- MILESTONE 2 -->
+      <div class="timeline-item" data-aos="fade-left">
+        <div class="timeline-icon"><i class="bi bi-diagram-3"></i></div>
+        <div class="timeline-content">
+          <span class="year">2020</span>
+          <h3>Process Strengthening</h3>
+          <p>Improved internal processes, onboarding workflows & compliance support.</p>
+        </div>
+      </div>
+
+      <!-- MILESTONE 3 -->
+      <div class="timeline-item" data-aos="fade-right">
+        <div class="timeline-icon"><i class="bi bi-building-check"></i></div>
+        <div class="timeline-content">
+          <span class="year">2021</span>
+          <h3>HR & Compliance Division</h3>
+          <p>Expanded into payroll, HR admin and statutory compliance services.</p>
+        </div>
+      </div>
+
+      <!-- MILESTONE 4 -->
+      <div class="timeline-item" data-aos="fade-left">
+        <div class="timeline-icon"><i class="bi bi-cpu"></i></div>
+        <div class="timeline-content">
+          <span class="year">2022</span>
+          <h3>Technology Integration</h3>
+          <p>Introduced digital tools, automation and HR tech-enabled solutions.</p>
+        </div>
+      </div>
+
+      <!-- MILESTONE 5 -->
+      <div class="timeline-item" data-aos="fade-right">
+        <div class="timeline-icon"><i class="bi bi-globe-americas"></i></div>
+        <div class="timeline-content">
+          <span class="year">2023</span>
+          <h3>New Business Verticals</h3>
+          <p>Stepped into IT support, infrastructure & digital transformation services.</p>
+        </div>
+      </div>
+
+      <!-- MILESTONE 6 -->
+      <div class="timeline-item" data-aos="fade-left">
+        <div class="timeline-icon"><i class="bi bi-graph-up-arrow"></i></div>
+        <div class="timeline-content">
+          <span class="year">2024</span>
+          <h3>360° Consulting Partner</h3>
+          <p>Evolved into a full-service HR, Tech & Business Consulting company.</p>
+        </div>
+      </div>
+
+      <!-- MILESTONE 7 -->
+      <div class="timeline-item" data-aos="fade-right">
+        <div class="timeline-icon"><i class="bi bi-people-fill"></i></div>
+        <div class="timeline-content">
+          <span class="year">2025</span>
+          <h3>Global Workforce Reach</h3>
+          <p>Started serving clients across India, UAE & Southeast Asian markets.</p>
+        </div>
+      </div>
+
+      <!-- MILESTONE 8 -->
+      <div class="timeline-item" data-aos="fade-left">
+        <div class="timeline-icon"><i class="bi bi-robot"></i></div>
+        <div class="timeline-content">
+          <span class="year">2026</span>
+          <h3>AI-Driven HR Automation</h3>
+          <p>Launched automation tools for hiring, onboarding & workflow management.</p>
+        </div>
+      </div>
+
+      <!-- MILESTONE 9 -->
+      <div class="timeline-item" data-aos="fade-right">
+        <div class="timeline-icon"><i class="bi bi-lightbulb"></i></div>
+        <div class="timeline-content">
+          <span class="year">2027</span>
+          <h3>Innovation Lab</h3>
+          <p>Established an R&D hub for HR tech, analytics & digital solutions.</p>
+        </div>
+      </div>
+
+      <!-- MILESTONE 10 -->
+      <div class="timeline-item" data-aos="fade-left">
+        <div class="timeline-icon"><i class="bi bi-award"></i></div>
+        <div class="timeline-content">
+          <span class="year">2028</span>
+          <h3>Industry Recognition</h3>
+          <p>Recognized for excellence in HR consulting & digital transformation.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+
+  <section class="cta-dark">
+    <h2>Start Your HR Transformation Today</h2>
+    <p>Talk to our experts for personalized workforce and compliance solutions.</p>
+
+    <form class="cta-form-dark">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="text" placeholder="Phone Number" required>
+      <button type="submit" class="glow-btn">Book Free Consultation</button>
+    </form>
+  </section>
+
+  <style>
+    .cta-dark {
+      background: #101820;
+      padding: 60px 30px;
+      text-align: center;
+      color: #fff;
+      border-radius: 20px;
+    }
+
+    .cta-form-dark {
+      max-width: 500px;
+      margin: 20px auto 0;
+      display: grid;
+      gap: 15px;
+    }
+
+    .cta-form-dark input {
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .glow-btn {
+      padding: 14px;
+      border: none;
+      color: #fff;
+      background: #0066ff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 0 12px rgba(0, 102, 255, 0.7);
+      transition: 0.3s;
+    }
+
+    .glow-btn:hover {
+      box-shadow: 0 0 20px rgba(0, 102, 255, 1);
+    }
+  </style>
+  <section class="contact-map-section">
+    <div class="contact-container">
+
+      <!-- Left: Map -->
+      <div class="contact-map" data-aos="fade-right">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.482356147...YOUR-MAP-LINK-HERE..."
+          style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="contact-form-box" data-aos="fade-left">
+        <h2>Get In Touch</h2>
+        <p>Reach out to us for staffing, HR, and business consulting solutions.</p>
+
+        <form class="contact-form">
+          <input type="text" placeholder="Full Name" required>
+          <input type="email" placeholder="Email Address" required>
+          <input type="text" placeholder="Phone Number" required>
+          <textarea placeholder="Your Message" rows="4" required></textarea>
+          <button class="contact-btn">Send Message</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <style>
+    /* Section Layout */
+    .contact-map-section {
+      padding: 60px 20px;
+      background: #0d1117;
+    }
+
+    .contact-container {
+      max-width: 1300px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    /* Map Styling */
+    .contact-map iframe {
+      width: 100%;
+      height: 420px;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Form Box */
+    .contact-form-box {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 30px;
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .contact-form-box h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .contact-form-box p {
+      font-size: 14px;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    /* Inputs */
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255, 255, 255, 0.13);
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+    }
+
+    /* Button */
+    .contact-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      background: #007bff;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 12px rgba(0, 123, 255, 0.6);
+    }
+
+    .contact-btn:hover {
+      box-shadow: 0 0 20px rgba(0, 123, 255, 1);
+      transform: translateY(-2px);
+    }
+
+    /* Animation */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media(max-width: 992px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+
+  <section class="counters" aria-label="Company stats">
+    <div class="counter-card" role="group" aria-labelledby="clients-label">
+      <span class="counter-number" data-start="1" data-target="232" data-duration="1600">1</span>
+      <span id="clients-label" class="counter-label">Happy Clients</span>
+    </div>
+
+    <div class="counter-card" role="group" aria-labelledby="projects-label">
+      <span class="counter-number" data-start="1" data-target="521" data-duration="1600">1</span>
+      <span id="projects-label" class="counter-label">Projects</span>
+    </div>
+
+    <div class="counter-card" role="group" aria-labelledby="support-label">
+      <span class="counter-number" data-start="1" data-target="15" data-duration="1200">1</span>
+      <span id="support-label" class="counter-label">24/7 Support</span>
+    </div>
+
+    <div class="counter-card" role="group" aria-labelledby="team-label">
+      <span class="counter-number" data-start="1" data-target="15" data-duration="1200">1</span>
+      <span id="team-label" class="counter-label">Hard Workers</span>
+    </div>
+  </section>
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Hiring?</h2>
+      <p>Get personalized staffing and recruitment solutions tailored for your business growth.</p>
+    </div>
+
+    <form class="cta-form">
+      <div class="form-group">
+        <input type="text" placeholder="Your Name" required>
+      </div>
+
+      <div class="form-group">
+        <input type="email" placeholder="Email Address" required>
+      </div>
+
+      <div class="form-group">
+        <input type="text" placeholder="Phone Number" required>
+      </div>
+
+      <div class="form-group">
+        <textarea placeholder="Your Requirements" rows="3" required></textarea>
+      </div>
+
+      <button type="submit" class="cta-btn">Get Free Consultation</button>
+    </form>
+  </section>
+
+
+  <script>
+    // Animate a single counter element from start -> target over duration(ms)
+    function animateCounter(el) {
+      const start = Number(el.getAttribute('data-start')) || 1;
+      const end = Number(el.getAttribute('data-target')) || 0;
+      const duration = Number(el.getAttribute('data-duration')) || 1500;
+
+      const range = end - start;
+      if (range <= 0) {
+        el.textContent = String(end);
+        return;
+      }
+
+      let startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // easing out (cubic)
+        const eased = 1 - Math.pow(1 - progress, 3);
+
+        const current = Math.floor(start + eased * range);
+        el.textContent = String(current);
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          // ensure exact final value
+          el.textContent = String(end);
+        }
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    // Observe counters and animate when visible
+    document.addEventListener('DOMContentLoaded', function () {
+      const counters = document.querySelectorAll('.counter-number');
+
+      // If IntersectionObserver not supported, just animate all
+      if (!('IntersectionObserver' in window)) {
+        counters.forEach(animateCounter);
+        return;
+      }
+
+      const io = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            // Avoid re-running if already animated
+            if (!el.dataset.animated) {
+              animateCounter(el);
+              el.dataset.animated = 'true';
+            }
+            // If you want it only once, unobserve:
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      counters.forEach(c => io.observe(c));
+    });
+  </script>
+
+</body>
+
+</html>
